@@ -61,9 +61,11 @@ fn main() {
 
         if is_typing {
             line(Position { x: 0, y: 1 }, &current_text[current_line], "blue");
+            /*
             for text_line in current_text.clone() {
                 line(Position { x: 0, y: 2 }, &text_line, "yellow");
             }
+            */
         }
 
         if is_typing && key_press(&app, "Up") {
@@ -73,7 +75,7 @@ fn main() {
         }
 
         if is_typing && key_press(&app, "Down") {
-            if current_text.len() != current_line && current_text.len() - 1 > current_line {
+            if current_text.len() > current_line {
                 current_text.push(String::new());
                 current_line += 1;
             } else {
