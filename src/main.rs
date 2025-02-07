@@ -15,7 +15,6 @@ fn main() {
     let mut current_text: Vec<String> = vec![String::new()];
     let mut is_typing: bool = false;
     let mut current_line = 0;
-    let mut max_current_lines = 0;
 
     raw_line(": then q <- (Quit)");
     raw_line("e <- (Type Mode)");
@@ -74,8 +73,7 @@ fn main() {
         }
 
         if is_typing && key_press(&app, "Down") {
-            if current_text.len() != current_line {
-                // error here
+            if current_text.len() != current_line && current_text.len() - 1 > current_line {
                 current_text.push(String::new());
                 current_line += 1;
             } else {
