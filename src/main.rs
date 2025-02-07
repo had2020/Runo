@@ -13,9 +13,9 @@ fn main() {
     let mut app = App::new();
 
     let mut current_text: Vec<String> = vec![String::new()];
-    //let mut typed_text: String = String::new();
     let mut is_typing: bool = false;
     let mut current_line = 0;
+    let mut max_current_lines = 0;
 
     raw_line(": then q <- (Quit)");
     raw_line("e <- (Type Mode)");
@@ -62,7 +62,9 @@ fn main() {
 
         if is_typing {
             line(Position { x: 0, y: 1 }, &current_text[current_line], "blue");
-            line(Position { x: 0, y: 2 }, format("{:?}", current_text)], "yellow");
+            for text_line in current_text.clone() {
+                line(Position { x: 0, y: 2 }, &text_line, "yellow");
+            }
         }
 
         if is_typing && key_press(&app, "Up") {
@@ -73,6 +75,7 @@ fn main() {
 
         if is_typing && key_press(&app, "Down") {
             if current_text.len() != current_line {
+                // error here
                 current_text.push(String::new());
                 current_line += 1;
             } else {
