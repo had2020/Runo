@@ -1,4 +1,4 @@
-use std::env;
+use std::{env, fmt::format};
 use TerimalRtdm::*;
 
 fn main() {
@@ -62,6 +62,7 @@ fn main() {
 
         if is_typing {
             line(Position { x: 0, y: 1 }, &current_text[current_line], "blue");
+            line(Position { x: 0, y: 2 }, format("{:?}", current_text)], "yellow");
         }
 
         if is_typing && key_press(&app, "Up") {
