@@ -6,6 +6,7 @@ fn main() {
     //println!("We got {:?} arguments: {:?}.", args.len() - 1, &args[1..]);
 
     if args.len() - 1 != 1 {
+        println!("Enter File path as argument!");
         std::process::exit(1);
     }
 
