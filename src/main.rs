@@ -1,12 +1,18 @@
-use std::{env, fmt::format};
+use std::env;
+use std::io::Write;
 use TerimalRtdm::*;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    //println!("We got {:?} arguments: {:?}.", args.len() - 1, &args[1..]);
+    let file_path = &args[1..].join(" ");
 
     if args.len() - 1 != 1 {
         println!("Enter File path as argument!");
+        std::process::exit(1);
+    }
+
+    if !file_path.contains(".") {
+        println!("Add file extension!");
         std::process::exit(1);
     }
 
@@ -19,7 +25,8 @@ fn main() {
 
     raw_line(": then q <- (Quit)");
     raw_line("e <- (Type Mode)");
-    raw_line(": then S <- (Save To File)");
+    raw_line("Enter <- (Save To File)");
+    raw_line("(Up) and (Down) arrows, to move");
 
     raw_mode(true);
 
@@ -42,7 +49,25 @@ fn main() {
 
         if is_typing && key_press(&app, "Enter") {
             is_typing = false;
-            line(Position { x: 0, y: 1 }, &current_text[current_line], "red");
+
+            let message = format!("Press S to Save: {}", file_path);
+            line(position!(0, 1), &message, "red");
+
+            if key_press(&app, "Y") || key_press(&app, "y") {
+                for line in current_text.clone() {
+                    let mut file = std::fs::OpenOptions::new()
+                        .append(false)
+                        .create(true)
+                        .open(file_path)
+                        .unwrap();
+
+                    writeln!(file, "{}", line).unwrap();
+                }
+            } else {
+                println!("hello");
+            }
+
+            if halt_press_check(app, key) {}
         }
 
         if is_typing && key_press(&app, "Space") {
