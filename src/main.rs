@@ -1,3 +1,20 @@
+/*
+Runo, nano-like rust text editer.
+By: Hadrian Lazic
+Last Updated: 2/8/25
+License Under: MIT
+
+'########::'##::::'##:'##::: ##::'#######::
+ ##.... ##: ##:::: ##: ###:: ##:'##.... ##:
+ ##:::: ##: ##:::: ##: ####: ##: ##:::: ##:
+ ########:: ##:::: ##: ## ## ##: ##:::: ##:
+ ##.. ##::: ##:::: ##: ##. ####: ##:::: ##:
+ ##::. ##:: ##:::: ##: ##:. ###: ##:::: ##:
+ ##:::. ##:. #######:: ##::. ##:. #######::
+..:::::..:::.......:::..::::..:::.......:::
+
+*/
+
 use std::env;
 use std::io::Write;
 use TerimalRtdm::*;
@@ -23,10 +40,10 @@ fn main() {
     let mut is_typing: bool = false;
     let mut current_line = 0;
 
-    raw_line(": then q <- (Quit)");
-    raw_line("e <- (Type Mode)");
-    raw_line("Enter <- (Save To File)");
-    raw_line("(Up) and (Down) arrows, to move");
+    raw_line("┌───────────────────────────────────────────────┐");
+    raw_line("│ Runo-Controls │ │ :q -> (Quit) | e -> Type    │");
+    raw_line("│ Enter -> (Save) │ │ Use ↑ and ↓ arrows to move│");
+    raw_line("└───────────────────────────────────────────────┘");
 
     raw_mode(true);
 
