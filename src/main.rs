@@ -53,21 +53,20 @@ fn main() {
             let message = format!("Press S to Save: {}", file_path);
             line(position!(0, 1), &message, "red");
 
-            if key_press(&app, "Y") || key_press(&app, "y") {
+            if halt_press_check(&mut app, "S") {
+                std::fs::File::create(file_path).unwrap();
                 for line in current_text.clone() {
                     let mut file = std::fs::OpenOptions::new()
-                        .append(false)
+                        .append(true)
                         .create(true)
                         .open(file_path)
                         .unwrap();
 
                     writeln!(file, "{}", line).unwrap();
                 }
-            } else {
-                println!("hello");
+                clear();
+                is_typing = true;
             }
-
-            if halt_press_check(app, key) {}
         }
 
         if is_typing && key_press(&app, "Space") {
